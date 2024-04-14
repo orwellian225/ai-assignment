@@ -22,3 +22,11 @@ Overview: [Brief PDF](assignment_briefs/RBC_Overview.pdf)
 4. Report & Improvements
     * [Brief PDF](assignment_briefs/Report.pdf)
     * 55%
+
+## Dependencies
+
+Python Chess: Python 3.8+
+
+```bash
+    pip install chess
+```
