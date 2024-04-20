@@ -9,8 +9,9 @@ def moves(board):
     for i in legal_moves:
         moves.append(i.uci())
     for move in without_opponent_pieces(board).generate_castling_moves():
-        moves.append(move.uci())
-    moves.sort()
+        if not is_illegal_castle(board,move) and move not in legal_moves:
+            moves.append(move.uci())
+    moves.sort() 
     return moves
 
 def sub1_main():
@@ -61,9 +62,9 @@ def sub3_main():
     board = chess.Board(input_fen)
 
     next_states = []
-    for move in board.legal_moves:
-        if move.uci()[2:4] == input_move:
-            board.push(move)
+    for move in moves(board):
+        if move[2:4] == input_move:
+            board.push_uci(move)
             next_states.append(board.fen())
             board.pop()
 
@@ -76,13 +77,15 @@ def valid_state_from_sense(state_fen: str, sense: str):
     board = chess.Board(state_fen)
     sense_squares = sense.split(";")
 
-    for square in sense_squares:
-        square_components = square.split(":")
-        square_id = square_components[0]
-        square_piece = square_components[1]
-        print(square, board.piece_at(square_id))
-        if board.piece_at(square_id).symbol != square_piece:
-            return False
+    for square_str in sense_squares:
+        square_components = square_str.split(":")
+        square = chess.parse_square(square_components[0])
+        if square_components[1] == '?':
+            if board.piece_at(square) != None:
+                return False
+        else:
+            if board.piece_at(square).symbol == square_components[1]:
+                return False
 
     return True
 
@@ -91,22 +94,24 @@ def sub4_main():
     input_states = []
     input_sense = ""
 
-    if len(sys.argv) == 4:
+    if len(sys.argv) >= 2:
         input_num_states = int(sys.argv[1])
-        input_states = sys.argv[2].split("\n")
-        input_sense = sys.argv[3]
+        for i in range(input_num_states):
+            input_states.append(sys.argv[2 + i])
+        input_sense = sys.argv[1 + input_num_states + 1]
     else:
         input_num_states = int(input())
         for _ in range(input_num_states):
             input_states.append(input())
         input_sense = input() 
 
+    input_states.sort()
     for state_fen in input_states:
         if valid_state_from_sense(state_fen, input_sense):
             print(state_fen)
 
 
-submission_id = 1
+submission_id = 4
 match submission_id:
     case 1:
         sub1_main()
