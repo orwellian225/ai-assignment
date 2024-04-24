@@ -180,10 +180,13 @@ class RandomSensing(rc.Player):
 
 
         stockfish_moves = dict(sorted(stockfish_moves.items()))
-        selected_move = list(stockfish_moves.keys())[0]
-        for move in stockfish_moves.keys():
-            if stockfish_moves[move] > stockfish_moves[selected_move]:
-                selected_move = move
+        if len(stockfish_moves) != 0:
+            selected_move = list(stockfish_moves.keys())[0]
+            for move in stockfish_moves.keys():
+                if stockfish_moves[move] > stockfish_moves[selected_move]:
+                    selected_move = move
+        else:
+            selected_move = chess.Move.null()
 
         return chess.Move.from_uci(selected_move) if selected_move != '0000' else None
     
