@@ -8,7 +8,6 @@ import sys
 stockfish_path = "./stockfish/stockfish"
 # stockfish_path = '/opt/stockfish/stockfish'
 
-
 class RandomSensing(rc.Player):
     def __init__(self):
         self.colour = False
@@ -18,7 +17,7 @@ class RandomSensing(rc.Player):
 
         self.states = set(())
 
-    ## Aux Methods
+    # Aux Methods
     def generate_possible_moves(self, state: str, turn: chess.Color) -> list[chess.Move]:
         self.board.set_board_fen(state)
         self.board.turn = turn
@@ -83,8 +82,6 @@ class RandomSensing(rc.Player):
         if self.colour == chess.WHITE and self.current_move == 0:
             return
 
-        # Evolve the states by any possible moves
-        self.states = self.apply_moves(self.states, not self.colour)
 
         remove_states = set(())
         if captured_my_piece:
@@ -211,8 +208,14 @@ class RandomSensing(rc.Player):
             self.my_board.push(taken_move)
             self.states = self.apply_move(self.states, taken_move, self.colour)
         else:
+            # Played an invalid move
+            # remove any state that causeed the invalid move
+
             # don't update the boards
             pass
+
+        # Evolve the states by any possible moves
+        self.states = self.apply_moves(self.states, not self.colour)
 
     def handle_game_end(self, winner_color: chess.Color | None, win_reason: rc.WinReason | None, game_history: rc.GameHistory):
         try:
