@@ -37,7 +37,7 @@ def apply_move(states: set[str], move: chess.Move, turn: chess.Color):
     num_removed = 0
 
     for state in states:
-        board.board_fen(state)
+        board.set_board_fen(state)
 
         try:
             board.push(move)
@@ -67,7 +67,7 @@ def evolve_states(states: set[str], turn: chess.Color, capture_square: chess.Squ
                 board.push(m)
                 new_states.add(board.board_fen())
                 board.pop()
-            elif capture_square is not None and m.to_sqaure != capture_square:
+            elif capture_square is not None and m.to_square != capture_square:
                 ignored_states += 1
             elif capture_square is None:
                 board.push(m)
@@ -132,11 +132,13 @@ class RandomSensing(rc.Player):
         print(f'{self.my_colour} in {self.my_board.board_fen()}')
         print(f'{self.opp_colour} in {len(self.states)} possible states')
 
+        if self.colour == chess.WHITE and self.current_move == 1:
+            return
+
         # Generate opponents possible moves
         self.states, num_removed_states = evolve_states(self.states, not self.colour, capture_square)
-        before_state_size = len(self.states)
 
-        print(f'Opp move result:\tremoved {num_removed_states} of {before_state_size} | {num_removed_states / before_state_size * 100:.2f}%')
+        print(f'Opp move result:\tremoved {num_removed_states}')
 
     def choose_sense(self, sense_actions: list[chess.Square], move_actions: list[chess.Move], seconds_left: float) -> chess.Square | None:
         print(f'{self.my_colour} time left:\t{seconds_left} seconds')
@@ -182,6 +184,51 @@ class RandomSensing(rc.Player):
 
         print(f'Random prune result:\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size * 100:.2f}%')
 
+        invalid_states = 0
+
+        print(f'Stockfish search:\t{len(self.states)} states at {10 / len(self.states)} seconds per state')
+        board = chess.Board()
+        selected_moves = {}
+        for state in self.states:
+            board.set_board_fen(state)
+            board.clear_stack()
+            board.turn = self.colour
+
+            opposing_king_square = board.king(not self.colour)
+            possible_moves = generate_moves(board)
+            for move in possible_moves:
+                if opposing_king_square == move.to_square:
+                    return move
+
+            try:
+                result = self.engine.play(board, chess.engine.Limit(time=10 / len(self.states)))
+
+                move_uci = result.move.uci()
+                if move_uci not in selected_moves.keys():
+                    selected_moves[move_uci] = 1
+                else:
+                    selected_moves[move_uci] += 1
+
+            except chess.engine.EngineTerminatedError:
+                print(f"Engine died: state {state}", file=sys.stderr)
+            except chess.engine.EngineError:
+                print(f'Engine bad state {state}', file=sys.stderr)
+
+        nonexisting_moves = 0
+        if len(selected_moves) != 0:
+            moves_uci = []
+            for mv in selected_moves.keys():
+                if chess.Move.from_uci(mv) not in move_actions:
+                    moves_uci.append(mv)
+                    nonexisting_moves += 1
+
+            for mv in moves_uci:
+                selected_moves.pop(mv)
+
+            print(f"Nonexistant moves:\t{nonexisting_moves}")
+            return chess.Move.from_uci(max(selected_moves, key=lambda key: selected_moves[key]))
+
+        print(f"Invalid states:\t{invalid_states} of {before_state_size} | {invalid_states / before_state_size * 100:.2f}%")
         return None
 
     def handle_move_result(self, requested_move: chess.Move | None, taken_move: chess.Move | None, captured_opponent_piece: chess.Color, capture_square: chess.Square | None):
@@ -196,7 +243,7 @@ class RandomSensing(rc.Player):
         if taken_move:
             self.my_board.turn = self.colour
             self.my_board.push(taken_move)
-            self.states, num_invalid_move_for_state_removed = apply_move(self.states, taken_move)
+            self.states, num_invalid_move_for_state_removed = apply_move(self.states, taken_move, self.colour)
         else:
             # prune the states that thought the move was valid
             board = chess.Board()
@@ -213,7 +260,10 @@ class RandomSensing(rc.Player):
                     num_invalid_move_taken_removed += 1
 
             for removed_state in removed_states:
-                self.states.remove(state)
+                try:
+                    self.states.remove(state)
+                except KeyError:
+                    print(f"Trying to remove non-existant state {state}")
 
         print(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size * 100:.2f}%')
 
