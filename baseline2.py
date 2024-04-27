@@ -156,12 +156,30 @@ class RandomSensing(rc.Player):
     def handle_sense_result(self, sense_result: rc.List[rc.Tuple[chess.Square | chess.Piece | None]]):
         before_state_size = len(self.states)
         removed_states = set()
+
+        board = chess.Board()
+        for state in self.states:
+            board.set_board_fen(state)
+            for sense_square in sense_result:
+                if board.piece_at(sense_square[0]) != sense_square[1]:
+                    removed_states.add(state)
+                    break
+
+        for removed_state in removed_states:
+            self.states.remove(removed_state)
+
         print(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size * 100:.2f}%')
-        pass
 
     def choose_move(self, move_actions: list[chess.Move], seconds_left: float) -> chess.Move | None:
         before_state_size = len(self.states)
         removed_states = set()
+
+        if len(self.states) > 10_000:
+            removed_states = random.sample(list(self.states), len(self.states) - 10_000)
+
+        for removed_state in removed_states:
+            self.states.remove(removed_state)
+
         print(f'Random prune result:\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size * 100:.2f}%')
 
         return None
