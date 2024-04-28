@@ -7,7 +7,6 @@ import sys
 
 stockfish_path = "/opt/homebrew/Cellar/stockfish/16.1/bin/stockfish"
 
-
 def generate_moves(board: chess.Board):
     moves = [chess.Move.null()]
     for m in board.generate_pseudo_legal_moves():
@@ -197,7 +196,7 @@ class RandomSensing(rc.Player):
             opposing_king_square = board.king(not self.colour)
             possible_moves = generate_moves(board)
             for move in possible_moves:
-                if opposing_king_square == move.to_square:
+                if opposing_king_square == move.to_square and move in move_actions:
                     return move
 
             try:
@@ -225,11 +224,13 @@ class RandomSensing(rc.Player):
             for mv in moves_uci:
                 selected_moves.pop(mv)
 
+            if len(selected_moves) == 0:
+                return None
+
             print(f"Nonexistant moves:\t{nonexisting_moves}")
             return chess.Move.from_uci(max(selected_moves, key=lambda key: selected_moves[key]))
-
-        print(f"Invalid states:\t{invalid_states} of {before_state_size} | {invalid_states / before_state_size * 100:.2f}%")
-        return None
+        else:
+            return None
 
     def handle_move_result(self, requested_move: chess.Move | None, taken_move: chess.Move | None, captured_opponent_piece: chess.Color, capture_square: chess.Square | None):
 
@@ -247,12 +248,12 @@ class RandomSensing(rc.Player):
         else:
             # prune the states that thought the move was valid
             board = chess.Board()
-            board.turn = self.colour
 
             removed_states = set()
 
             for state in self.states:
                 board.set_board_fen(state)
+                board.turn = self.colour
                 moves = generate_moves(board)
 
                 if requested_move in moves:

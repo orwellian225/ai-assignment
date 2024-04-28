@@ -5,7 +5,8 @@ import reconchess as rc
 import reconchess.utilities as rcu
 import sys
 
-stockfish_path = "./stockfish/stockfish"
+# stockfish_path = "./stockfish/stockfish"
+stockfish_path = "/opt/homebrew/Cellar/stockfish/16.1/bin/stockfish"
 # stockfish_path = '/opt/stockfish/stockfish'
 
 class RandomSensing(rc.Player):
@@ -128,9 +129,9 @@ class RandomSensing(rc.Player):
             self.states.remove(remove_state)
 
     def choose_move(self, move_actions: list[chess.Move], seconds_left: float) -> chess.Move | None:
-        print(f"{"White" if self.colour else "Black"} pieces:", self.my_board.board_fen())
-        print(f"{"White" if self.colour else "Black"} time:", seconds_left, "s")
-        print(f"{"White" if self.colour else "Black"} possible {"white" if not self.colour else "black"} states:", len(self.states))
+        print(f"{'White' if self.colour else 'Black'} pieces: {self.my_board.board_fen()}")
+        print(f"{'White' if self.colour else 'Black'} time:", seconds_left, "s")
+        print(f"{'White' if self.colour else 'Black'} possible {'white' if not self.colour else 'black'} states:", len(self.states))
 
         stockfish_moves = {}
 
@@ -155,7 +156,6 @@ class RandomSensing(rc.Player):
                     can_attack_king = True
                     break
 
-
             try:
                 if not can_attack_king and self.board.is_valid():
                     stockfish_move = self.engine.play(self.board, chess.engine.Limit(10 / len(self.states))).move
@@ -174,7 +174,6 @@ class RandomSensing(rc.Player):
                 stockfish_moves[stockfish_move.uci()] = 1
             else:
                 stockfish_moves[stockfish_move.uci()] += 1
-
 
         stockfish_moves = dict(sorted(stockfish_moves.items()))
         if len(stockfish_moves) != 0:
