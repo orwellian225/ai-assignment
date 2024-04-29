@@ -1,0 +1,584 @@
+Game	White			Black		Result
+-------------------------------------------------------
+1.1	RandomSensing		EntropicSense	Black
+1.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+2.1	RandomSensing		RandomBot	White
+2.2	EntropicSense		TroutBot	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+3.1	RandomSensing		TroutBot	Black
+3.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+4.1	EntropicSense		RandomSensing	White
+4.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+5.1	RandomBot		RandomSensing	Black
+5.2	TroutBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+6.1	TroutBot		RandomSensing	White
+6.2	RandomBot		EntropicSense	(Error - Failed)
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+7.1	RandomSensing		EntropicSense	White
+7.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+8.1	RandomSensing		RandomBot	Black
+8.2	EntropicSense		TroutBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+9.1	RandomSensing		TroutBot	White
+9.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+10.1	EntropicSense		RandomSensing	White
+10.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+11.1	RandomBot		RandomSensing	Black
+11.2	TroutBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+12.1	TroutBot		RandomSensing	White
+12.2	RandomBot		EntropicSense	(Error - Failed)
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+13.1	RandomSensing		EntropicSense	Black
+13.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+14.1	RandomSensing		RandomBot	Black
+14.2	EntropicSense		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+15.1	RandomSensing		TroutBot	Black
+15.2	EntropicSense		RandomBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+16.1	EntropicSense		RandomSensing	Black
+16.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+17.1	RandomBot		RandomSensing	Black
+17.2	TroutBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+18.1	TroutBot		RandomSensing	White
+18.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+19.1	RandomSensing		EntropicSense	White
+19.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+20.1	RandomSensing		RandomBot	Black
+20.2	EntropicSense		TroutBot	(Error - Failed)
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+21.1	RandomSensing		TroutBot	Black
+21.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+22.1	EntropicSense		RandomSensing	Black
+22.2	TroutBot		RandomBot	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+23.1	RandomBot		RandomSensing	White
+23.2	TroutBot		EntropicSense	(Error - Failed)
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+24.1	TroutBot		RandomSensing	White
+24.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+25.1	RandomSensing		EntropicSense	Black
+25.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+26.1	RandomSensing		RandomBot	White
+26.2	EntropicSense		TroutBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+27.1	RandomSensing		TroutBot	Black
+27.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+28.1	EntropicSense		RandomSensing	Black
+28.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+29.1	RandomBot		RandomSensing	White
+29.2	TroutBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+30.1	TroutBot		RandomSensing	Black
+30.2	RandomBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+31.1	RandomSensing		EntropicSense	Black
+31.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+32.1	RandomSensing		RandomBot	White
+32.2	EntropicSense		TroutBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+33.1	RandomSensing		TroutBot	Black
+33.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+34.1	EntropicSense		RandomSensing	Black
+34.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+35.1	RandomBot		RandomSensing	White
+35.2	TroutBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+36.1	TroutBot		RandomSensing	White
+36.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+37.1	RandomSensing		EntropicSense	White
+37.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+38.1	RandomSensing		RandomBot	Black
+38.2	EntropicSense		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+39.1	RandomSensing		TroutBot	White
+39.2	EntropicSense		RandomBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+40.1	EntropicSense		RandomSensing	White
+40.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+41.1	RandomBot		RandomSensing	White
+41.2	TroutBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+42.1	TroutBot		RandomSensing	Black
+42.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+43.1	RandomSensing		EntropicSense	Black
+43.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+44.1	RandomSensing		RandomBot	Black
+44.2	EntropicSense		TroutBot	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+45.1	RandomSensing		TroutBot	Black
+45.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+46.1	EntropicSense		RandomSensing	White
+46.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+47.1	RandomBot		RandomSensing	White
+47.2	TroutBot		EntropicSense	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+48.1	TroutBot		RandomSensing	White
+48.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+49.1	RandomSensing		EntropicSense	Black
+49.2	RandomBot		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+50.1	RandomSensing		RandomBot	Black
+50.2	EntropicSense		TroutBot	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+51.1	RandomSensing		TroutBot	Black
+51.2	EntropicSense		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+52.1	EntropicSense		RandomSensing	Black
+52.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+53.1	RandomBot		RandomSensing	White
+53.2	TroutBot		EntropicSense	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+54.1	TroutBot		RandomSensing	White
+54.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+55.1	RandomSensing		EntropicSense	Black
+55.2	RandomBot		TroutBot	Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+Stockfish Engine died
+White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+56.1	RandomSensing		RandomBot	Black
+56.2	EntropicSense		TroutBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+57.1	RandomSensing		TroutBot	Black
+57.2	EntropicSense		RandomBot	(Error - Failed)
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+58.1	EntropicSense		RandomSensing	White
+58.2	TroutBot		RandomBot	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+59.1	RandomBot		RandomSensing	White
+59.2	TroutBot		EntropicSense	White
+-------------------------------------------------------
+Game	White			Black		Result
+-------------------------------------------------------
+60.1	TroutBot		RandomSensing	White
+60.2	RandomBot		EntropicSense	Black
+-------------------------------------------------------
+Agent Results
+Agent		Wins	Losses	Draws	Win %
+-------------------------------------------------------
+RandomSensing	18	42	0	30.00
+EntropicSense	34	21	0	56.67
+RandomBot	18	39	0	30.00
+TroutBot	45	13	0	75.00
