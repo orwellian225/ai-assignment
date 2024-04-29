@@ -8,7 +8,7 @@ import sys
 
 stockfish_path = "/opt/homebrew/Cellar/stockfish/16.1/bin/stockfish"
 
-logger = logging.getLogger()
+logger = logging.getLogger('sensing.random')
 logging.basicConfig(filename="baseline.log", encoding="utf-8", level=logging.DEBUG)
 
 def generate_moves(board: chess.Board):
@@ -107,11 +107,8 @@ if __name__ == "__main__":
 class RandomSensing(rc.Player):
     def __init__(self):
         self.colour = False
-
         self.my_board = None
-
         self.current_move = 0
-
         self.states = set()
 
     # ReconChess Player Requirements
@@ -173,7 +170,7 @@ class RandomSensing(rc.Player):
         for removed_state in removed_states:
             self.states.remove(removed_state)
 
-        logger.debug(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size * 100:.2f}%')
+        logger.debug(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
     def choose_move(self, move_actions: list[chess.Move], seconds_left: float) -> chess.Move | None:
         before_state_size = len(self.states)
@@ -185,11 +182,11 @@ class RandomSensing(rc.Player):
         for removed_state in removed_states:
             self.states.remove(removed_state)
 
-        logger.debug(f'Random prune result:\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size * 100:.2f}%')
+        logger.debug(f'Random prune result:\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
         invalid_states = 0
 
-        logger.debug(f'Stockfish search:\t{len(self.states)} states at {10 / len(self.states)} seconds per state')
+        logger.debug(f'Stockfish search:\t{len(self.states)} states at {10 / len(self.states) if len(self.states) != 0 else 1e6} seconds per state')
         board = chess.Board()
         selected_moves = {}
         for state in self.states:
@@ -204,7 +201,7 @@ class RandomSensing(rc.Player):
                     return move
 
             try:
-                result = self.engine.play(board, chess.engine.Limit(time=10 / len(self.states)))
+                result = self.engine.play(board, chess.engine.Limit(time=10 / len(self.states) if len(self.states) != 0 else 1e6))
 
                 move_uci = result.move.uci() if result.move != None else '0000'
                 if move_uci not in selected_moves.keys():
@@ -215,7 +212,7 @@ class RandomSensing(rc.Player):
             except chess.engine.EngineTerminatedError:
                 logger.warning(f"Engine died: state {state}")
             except chess.engine.EngineError:
-                logger.warning(f'Engine bad state {state}', file=sys.stderr)
+                logger.warning(f'Engine bad state {state}')
 
         nonexisting_moves = 0
         if len(selected_moves) != 0:
@@ -270,11 +267,11 @@ class RandomSensing(rc.Player):
                 except KeyError:
                     logger.warning(f"Trying to remove non-existant state {removed_state}")
 
-        logger.debug(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size * 100:.2f}%')
+        logger.debug(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
 
     def handle_game_end(self, winner_color: chess.Color | None, win_reason: rc.WinReason | None, game_history: rc.GameHistory):
         try:
             self.engine.quit()
         except chess.engine.EngineTerminatedError:
-            logger.error("Failed to terminate engine", sys.stderr)
+            logger.error("Failed to terminate engine")
