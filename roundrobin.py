@@ -4,6 +4,7 @@ from reconchess.bots.trout_bot import TroutBot
 from baseline2 import RandomSensing
 from improved import EntropicSense
 from improved2 import NonPrunedEntropic
+from improved3 import FishyEntropy
 
 import sys
 
@@ -11,21 +12,22 @@ if len(sys.argv) == 3:
     num_rounds = int(sys.argv[1])
     game_length = float(sys.argv[2])
 else:
-    num_rounds = int(input("Number of rounds"))
-    game_length = float(input("Seconds per game"))
+    num_rounds = int(input("Number of rounds: "))
+    game_length = float(input("Seconds per game: "))
 
-players = [RandomSensing, NonPrunedEntropic, RandomBot, TroutBot]
+players = [TroutBot, FishyEntropy]
 
-game_rotations = [
-    [(0, 1), (2, 3)],
-    [(0, 2), (1, 3)],
-    [(0, 3), (1, 2)],
+# game_rotations = [
+#     [(0, 1), (2, 3)],
+#     [(0, 2), (1, 3)],
+#     [(0, 3), (1, 2)],
 
-    # Swap Colours
-    [(1, 0), (3, 2)],
-    [(2, 0), (3, 1)],
-    [(3, 0), (2, 1)],
-]
+#     # Swap Colours
+#     [(1, 0), (3, 2)],
+#     [(2, 0), (3, 1)],
+#     [(3, 0), (2, 1)],
+# ]
+game_rotations = [[(0,1)], [(1,0)]]
 
 game_results = {}
 for player in players:
