@@ -2,9 +2,10 @@ import reconchess as rc
 from reconchess.bots.random_bot import RandomBot
 from reconchess.bots.trout_bot import TroutBot
 from baseline2 import RandomSensing
-from improved import EntropicSense
-from improved2 import NonPrunedEntropic
-from improved3 import FishyEntropy
+# from improved import EntropicSense
+# from improved2 import NonPrunedEntropic
+# from improved3 import FishyEntropy
+from improved.attempt4 import OpeningFishyEntropy
 
 import sys
 
@@ -15,7 +16,7 @@ else:
     num_rounds = int(input("Number of rounds: "))
     game_length = float(input("Seconds per game: "))
 
-players = [TroutBot, FishyEntropy]
+players = [TroutBot, OpeningFishyEntropy]
 
 # game_rotations = [
 #     [(0, 1), (2, 3)],
@@ -27,7 +28,7 @@ players = [TroutBot, FishyEntropy]
 #     [(2, 0), (3, 1)],
 #     [(3, 0), (2, 1)],
 # ]
-game_rotations = [[(0,1)], [(1,0)]]
+game_rotations = [[(0, 1)], [(1, 0)]]
 
 game_results = {}
 for player in players:
@@ -43,7 +44,7 @@ for i in range(num_rounds):
     print(f"{'-':-<90}")
     for game in game_rotation:
         subgame = game_rotation.index(game)
-        print(f"{i + 1}.{subgame + 1}\t{players[game[0]].__qualname__: <16}\t{players[game[1]].__qualname__: <16}", end="", flush=True)
+        print(f"{i + 1}.{subgame + 1}\t{players[game[0]].__qualname__: <16}\t{players[game[1]].__qualname__: <16}", end="\n", flush=True)
 
         try:
             game_result, win_reason, _ = rc.play_local_game(players[game[0]](), players[game[1]](), seconds_per_player=game_length)
