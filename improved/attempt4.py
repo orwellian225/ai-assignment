@@ -172,10 +172,10 @@ class OpeningFishyEntropy(rc.Player):
 
     def handle_opponent_move_result(self, captured_my_piece: bool, capture_square: int | None):
         self.current_move += 1
-        print(f'Move {self.current_move}')
-        print('--------------------------------')
-        print(f'{self.my_colour} in {self.my_board.board_fen()}')
-        print(f'{self.opp_colour} in {len(self.states)} possible states')
+        # print('--------------------------------')
+        # print(f'Move {self.current_move}')
+        # print(f'{self.my_colour} in {self.my_board.board_fen()}')
+        # print(f'{self.opp_colour} in {len(self.states)} possible states')
 
         if self.colour == chess.WHITE and self.current_move == 1:
             return
@@ -183,26 +183,27 @@ class OpeningFishyEntropy(rc.Player):
         # Generate opponents possible moves
         self.states, num_removed_states = evolve_states(self.states, not self.colour, capture_square)
 
-        print(f'Opp move result:\tremoved {num_removed_states}')
+        # print(f'Opp move result:\tremoved {num_removed_states}')
 
     def choose_sense(self, sense_actions: list[chess.Square], move_actions: list[chess.Move], seconds_left: float) -> chess.Square | None:
-        self.logger.debug(f'{self.my_colour} time left:\t{seconds_left} seconds')
+        # print(f'{self.my_colour} time left:\t{seconds_left} seconds')
 
         probabilites = calculate_probabilites(self.states)
         entropy = calculate_entropy(probabilites) if probabilites is not None else np.zeros((8,8))
 
         # Remove the squares around the edges of the board (remove rank 1 & 8, remove file a & h)
-        entropy = entropy[1:7, 1:7] # removing ranks 1 & 8
+        entropy = np.reshape(entropy[1:7, 1:7], (6*6)) # removing ranks 1 & 8
 
         sense_actions = np.reshape(np.reshape(np.array(sense_actions), (8,8))[1:7, 1:7], (6*6))
-        selected_indices = np.argmax(entropy)
-        selected_sense_square = sense_actions[selected_indices]
+        max_indices = np.argwhere(entropy == np.amax(entropy))
 
-        print(f'Sense choice:\t{chess.square_name(selected_sense_square)} with entropy {np.reshape(entropy, (6*6))[selected_indices]} | max entropy {np.max(entropy)}')
+        selected_sense_square = sense_actions[random.choice(max_indices)]
+
+        # print(f'Sense choice:\t{chess.square_name(selected_sense_square)} with entropy {np.reshape(entropy, (6*6))[selected_indices]} | max entropy {np.max(entropy)}')
         return int(selected_sense_square)
 
     def handle_sense_result(self, sense_result: rc.List[rc.Tuple[chess.Square | chess.Piece | None]]):
-        before_state_size = len(self.states)
+        # before_state_size = len(self.states)
         removed_states = set()
 
         board = chess.Board()
@@ -216,7 +217,7 @@ class OpeningFishyEntropy(rc.Player):
         for removed_state in removed_states:
             self.states.remove(removed_state)
 
-        print(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
+        # print(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
     def choose_move(self, move_actions: list[chess.Move], seconds_left: float) -> chess.Move | None:
         board = chess.Board()
@@ -238,12 +239,15 @@ class OpeningFishyEntropy(rc.Player):
             if self.current_move >= len(self.opening_moves[self.colour]):
                 self.perform_opening = False
 
-            return selected_move
+            if selected_move in move_actions:
+                return selected_move
+            else:
+                return None
         else:
             # pick opponents best states for a bit of the minimax action lmao
             search_states = select_best_states(self.states, not self.colour, self.engine, 10_000)
 
-            print(f'Stockfish search:\t{len(search_states)} states at {10 / len(search_states) if len(search_states) != 0 else 1e6} seconds per state')
+            # print(f'Stockfish search:\t{len(search_states)} states at {10 / len(search_states) if len(search_states) != 0 else 1e6} seconds per state')
             selected_moves = {}
 
             try:
@@ -274,15 +278,15 @@ class OpeningFishyEntropy(rc.Player):
                 if len(selected_moves) == 0:
                     return None
 
-                print(f"Nonexistant moves:\t{nonexisting_moves}")
+                # print(f"Nonexistant moves:\t{nonexisting_moves}")
                 return chess.Move.from_uci(max(selected_moves, key=lambda key: selected_moves[key]))
             else:
                 return None
 
     def handle_move_result(self, requested_move: chess.Move | None, taken_move: chess.Move | None, captured_opponent_piece: chess.Color, capture_square: chess.Square | None):
 
-        print(f'Move choice:\t\t{requested_move.uci() if requested_move else "0000"}')
-        print(f'Move taken:\t\t{taken_move.uci() if taken_move else "0000"}')
+        # print(f'Move choice:\t\t{requested_move.uci() if requested_move else "0000"}')
+        # print(f'Move taken:\t\t{taken_move.uci() if taken_move else "0000"}')
 
         before_state_size = len(self.states)
         num_invalid_move_for_state_removed = 0
@@ -317,7 +321,7 @@ class OpeningFishyEntropy(rc.Player):
 
             pass
 
-        print(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
+        # print(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
 
     def handle_game_end(self, winner_color: chess.Color | None, win_reason: rc.WinReason | None, game_history: rc.GameHistory):
