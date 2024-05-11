@@ -18,17 +18,11 @@ else:
     num_rounds = int(input("Number of rounds: "))
     game_length = float(input("Seconds per game: "))
 
-players = [TroutBot, OpeningFishyEntropy, SomethingClever, RandomSensing]
+players = [TroutBot, SomethingClever]
 
 game_rotations = [
-    [(0, 1), (2, 3)],
-    [(0, 2), (1, 3)],
-    [(0, 3), (1, 2)],
-
-    # Swap Colours
-    [(1, 0), (3, 2)],
-    [(2, 0), (3, 1)],
-    [(3, 0), (2, 1)],
+    [(0,1)],
+    [(1,0)]
 ]
 
 game_results = {}
