@@ -1,2 +1,6 @@
 __pycache__/
 stockfish/
+venv/
+results/
+*.log
+*.txt

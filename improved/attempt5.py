@@ -11,20 +11,51 @@ import sys
 
 stockfish_path = "/opt/homebrew/Cellar/stockfish/16.1/bin/stockfish"
 
-def select_best_states(states: set[str], turn: chess.Color, engine: chess.engine.SimpleEngine, state_limit: int) -> list[str]:
+def select_best_states(states: set[str], turn: chess.Color, engine: chess.engine.SimpleEngine, state_limits: list[int], evaluation_limits: list[int]) -> list[str]:
     """
         Not allowed to modify states variable
+
+        state_limits -> A list of three values indiciting how many of each state type we want
+            first value 0: Worst states for turn
+            second value 1: Middle states for turn
+            third value 2: Best states for turn
+
+        evaluation_limits -> A list of four values marking the range used to determine an evaluations quality, values are in centipawns (1 pawn = 100 score)
+            eval < evalulation_limits[0]: state that created eval is bad for turn
+            evaluation_limits[1] < eval < evalulation_limits[2]: state that created eval is middle for turn
+            evaluation_limits[3] < eval: state that created eval is good for turn
     """
+    assert(len(state_limits) == 3)
+    assert(len(evaluation_limits) == 4)
+
+    net_state_limit = state_limits[0] + state_limits[1] + state_limits[2]
     possible_states = list(states)
-    if len(states) > state_limit:
+    if len(states) > net_state_limit:
         board = chess.Board()
         board.turn = turn
 
-        state_evaluations = {}
-        for state in states:
-            state_evaluations[state] = engine.analyse(board, chess.engine.Limit(depth=5))["score"].pov(turn)
+        counter_worst_states = 0
+        counter_best_states = 0
+        counter_middle_states = 0
+        selected_states = []
 
-        return heapq.nlargest(state_limit, state_evaluations, key=lambda key: state_evaluations[key])
+        for state in states:
+            state_evaluation = engine.analyse(board, chess.engine.Limit(depth=5))["score"].pov(turn).score(mate_score = 10_000)
+
+            if state_evaluation < evaluation_limits[0] and counter_worst_states < state_limits[0]:
+                counter_worst_states += 1
+                selected_states.append(state)
+            elif evaluation_limits[1] < state_evaluation.score and state_evaluation < evaluation_limits[2] and counter_middle_states < state_limits[1]:
+                counter_middle_states += 1
+                selected_states.append(state)
+            elif state_evaluation > evaluation_limits[3] and counter_best_states < state_limits[2]:
+                counter_best_states += 1
+                selected_states.append(state)
+
+            if len(selected_states) >= net_state_limit:
+                break
+
+        return selected_states
     else:
         return possible_states
 
@@ -138,7 +169,7 @@ def evolve_states(states: set[str], turn: chess.Color, capture_square: chess.Squ
 
     return new_states, ignored_states
 
-class OpeningFishyEntropy(rc.Player):
+class SomethingClever(rc.Player):
     def __init__(self):
         self.colour = False
         self.my_board = None
@@ -220,7 +251,8 @@ class OpeningFishyEntropy(rc.Player):
         # print(f'Sense result:\t\tremoved {len(removed_states)} of {before_state_size} | {len(removed_states) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 
     def choose_move(self, move_actions: list[chess.Move], seconds_left: float) -> chess.Move | None:
-        search_states = select_best_states(self.states, not self.colour, self.engine, 10_000)
+        # Score range of state evaluation is in centipawns
+        search_states = select_best_states(self.states, not self.colour, self.engine, [33_333, 33_334, 33_333], [-400, -200, 200, 400])
         board = chess.Board()
         for state in search_states:
             board.set_board_fen(state)
