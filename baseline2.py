@@ -244,28 +244,9 @@ class RandomSensing(rc.Player):
 
         if taken_move:
             self.my_board.turn = self.colour
-            self.my_board.push(taken_move)
+            self.my_board.set_piece_at(taken_move.to_square, self.my_board.piece_at(taken_move.from_square), False)
+            self.my_board.remove_piece_at(taken_move.from_square)
             self.states, num_invalid_move_for_state_removed = apply_move(self.states, taken_move, self.colour)
-        else:
-            # prune the states that thought the move was valid
-            board = chess.Board()
-
-            removed_states = set()
-
-            for state in self.states:
-                board.set_board_fen(state)
-                board.turn = self.colour
-                moves = generate_moves(board)
-
-                if requested_move in moves:
-                    removed_states.add(state)
-                    num_invalid_move_taken_removed += 1
-
-            for removed_state in removed_states:
-                try:
-                    self.states.remove(removed_state)
-                except KeyError:
-                    logger.warning(f"Trying to remove non-existant state {removed_state}")
 
         logger.debug(f'My move result:\t\tremoved {num_invalid_move_for_state_removed + num_invalid_move_taken_removed} of {before_state_size} | {(num_invalid_move_for_state_removed + num_invalid_move_taken_removed) / before_state_size if before_state_size != 0 else 1e6 * 100:.2f}%')
 

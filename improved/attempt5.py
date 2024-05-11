@@ -45,7 +45,7 @@ def select_best_states(states: set[str], turn: chess.Color, engine: chess.engine
             if state_evaluation < evaluation_limits[0] and counter_worst_states < state_limits[0]:
                 counter_worst_states += 1
                 selected_states.append(state)
-            elif evaluation_limits[1] < state_evaluation.score and state_evaluation < evaluation_limits[2] and counter_middle_states < state_limits[1]:
+            elif evaluation_limits[1] < state_evaluation and state_evaluation < evaluation_limits[2] and counter_middle_states < state_limits[1]:
                 counter_middle_states += 1
                 selected_states.append(state)
             elif state_evaluation > evaluation_limits[3] and counter_best_states < state_limits[2]:
@@ -169,7 +169,7 @@ def evolve_states(states: set[str], turn: chess.Color, capture_square: chess.Squ
 
     return new_states, ignored_states
 
-class SomethingClever(rc.Player):
+class ImprovedAgent(rc.Player):
     def __init__(self):
         self.colour = False
         self.my_board = None
